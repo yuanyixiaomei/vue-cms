@@ -1,5 +1,5 @@
 {
-  "name": "yy",
+  "name": "cms",
   "version": "1.0.0",
   "description": "A Vue.js project",
   "author": "yuanyue <705276946@qq.com>",
@@ -10,6 +10,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "mint-ui": "^2.2.13",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"
   },
