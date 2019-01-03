@@ -3,23 +3,34 @@
 import Vue from 'vue'
 import app from './App.vue'
 
+import VueResource from 'vue-resource'
+
+// 安装vue-resource  在此之后才可以使用Vue.$http对象
+Vue.use(VueResource)
+
 //导入路由
-import vueRouter from "vue-router"
-
-
-Vue.use(vueRouter)
-
 import router from './router/index'
-//按需导入头部样式
-import { Header } from 'mint-ui'
 
-Vue.component(Header.name, Header)
 
+
+//按需mint-ui样式
+
+import mintui from 'mint-ui'
+Vue.use(mintui)
+import "mint-ui/lib/style.css" 
 
 //导入mui的样式和字体和扩展样式
 import "./dist/css/mui.css"
 import "./dist/fonts/mui.ttf"
 import "./dist/css/icons-extra.css"
+
+// 配置全局的接口地址
+Vue.http.options.root="http://www.lovegf.cn:8899/"
+
+//vue resoure 里面改变post编码格式
+
+Vue.http.options.emulateJSON = true
+
 
 
 Vue.config.productionTip = false
@@ -29,4 +40,5 @@ var vm=new Vue({
   el:"#app",
   render: c => c(app),
   router,
+  
 })

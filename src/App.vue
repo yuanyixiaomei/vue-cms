@@ -2,12 +2,17 @@
   <div id="app" class="app-container">
     <!-- 顶部 -->
     <mt-header fixed title="我的vue项目"></mt-header>
-   <!-- z中部 -->
+    <!-- 轮播图 -->
+   
+    <!-- z中部 -->
 
-   <router-view></router-view>
+    <transition mode="out-in"> 
+     <router-view></router-view>
+    </transition>
+   
     <!-- //底部 -->
     <nav class="mui-bar mui-bar-tab">
-      <router-link class="mui-tab-item" to="/home" >
+      <router-link class="mui-tab-item" to="/home">
         <span class="mui-icon mui-icon-home"></span>
         <span class="mui-tab-label">首页</span>
       </router-link>
@@ -20,11 +25,9 @@
           <span class="mui-badge">0</span>
         </span>
 
-
         <!-- <span class="mui-icon mui-icon-extra mui-icon-extra-cart">
           <span class="mui-badge">0</span>
-        </span> -->
-        
+        </span>-->
         <span class="mui-tab-label">购物车</span>
       </router-link>
       <router-link class="mui-tab-item" to="/search">
@@ -32,7 +35,8 @@
         <span class="mui-tab-label">搜索</span>
       </router-link>
     </nav>
-  </div>
+ 
+   </div>
 </template>
 
 <script>
@@ -44,5 +48,23 @@ export default {
 <style>
 .app-container {
   padding-top: 40px;
+  overflow: hidden;
+}
+
+.v-enter,
+{
+opacity: 0;
+transform: translateX(100%)
+}
+
+
+.v-leave-to{
+opacity: 0;
+transform: translateX(-100%)
+}  
+
+.v-enter-active,
+.v-leave-active{
+  transition: all 0.5s ease;
 }
 </style>
