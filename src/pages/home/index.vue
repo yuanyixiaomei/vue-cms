@@ -17,34 +17,34 @@
           </router-link>
         </li>
         <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-          <outer-link href="#">
+          <router-link to="/home/newsList">
             <img src="../../assets/menu2.png" alt>
             <div class="mui-media-body">图片分享</div>
-          </outer-link>
+          </router-link>
         </li>
         <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-          <outer-link href="#">
+          <router-link to="/home/newsList">
             <img src="../../assets/menu3.png" alt>
             <div class="mui-media-body">商品购买</div>
-          </outer-link>
+          </router-link>
         </li>
         <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-          <outer-link href="#">
+          <router-link to="/home/newsList">
             <img src="../../assets/menu4.png" alt>
             <div class="mui-media-body">留言反馈</div>
-          </outer-link>
+          </router-link>
         </li>
         <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-          <outer-link href="#">
+          <router-link to="/home/newsList">
             <img src="../../assets/menu5.png" alt>
             <div class="mui-media-body">视频专区</div>
-          </outer-link>
+          </router-link>
         </li>
         <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-          <outer-link href="#">
+          <router-link to="/home/newsList">
             <img src="../../assets/menu6.png" alt>
             <div class="mui-media-body">联系我们</div>
-          </outer-link>
+          </router-link>
         </li>
       </ul>
     </div>

@@ -35,6 +35,17 @@ Vue.http.options.emulateJSON = true
 
 Vue.config.productionTip = false
 
+// 定义全局的过滤器
+
+// 注册
+import moment from "moment"
+Vue.filter('my-filter', function (dataStr,pattern="YYYY-MM-DD HH:mm:ss") {
+   return moment(dataStr).format(pattern);
+})
+
+
+
+
 /* eslint-disable no-new */
 var vm=new Vue({
   el:"#app",

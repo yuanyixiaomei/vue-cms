@@ -7,6 +7,7 @@ import search from "../pages/search"
 import member from "../pages/member"
 import home from "../pages/home"
 import newsList from "../pages/newsList"
+import newsInfo from "../pages/newsInfo"
 Vue.use(Router)
 
 export default new Router({
@@ -17,6 +18,7 @@ export default new Router({
     {path: '/member',component:member},
     {path: '/home',component:home},
     {path: '/home/newsList',component:newsList},
+    {path: '/home/newsList/newsInfo/:id',component:newsInfo},
 
 
   ],
