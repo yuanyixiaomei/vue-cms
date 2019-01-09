@@ -8,8 +8,12 @@ import member from "../pages/member"
 import home from "../pages/home"
 import newsList from "../pages/newsList"
 import newsInfo from "../pages/newsInfo"
+import photoList from "../pages/photoList"
+import photoInfo from "../pages/photoInfo"
+import goodsList from "../pages/goodsList"
+import goodsInfo from "../pages/goodsInfo"
 Vue.use(Router)
-
+                      
 export default new Router({
   routes: [
     {path: '/',redirect:"/home"},
@@ -19,6 +23,10 @@ export default new Router({
     {path: '/home',component:home},
     {path: '/home/newsList',component:newsList},
     {path: '/home/newsList/newsInfo/:id',component:newsInfo},
+     {path: '/home/photoList',component:photoList},
+    {path: '/home/photoInfo/:id',component:photoInfo},
+    {path: '/home/goodsList',component:goodsList},
+    {path: '/home/goodsInfo/:id',component:goodsInfo,name:"goodsInfo"},
 
 
   ],

@@ -1,20 +1,28 @@
+
 <template>
   <div class="newsinfo-container" >
-    <h3 class="title">{{newsinfo.title}}</h3>
+    <h3 class="title"  >{{newsinfo.title}}</h3>
     <p class="subtitle">
       <span>发表时间:{{newsinfo.add_time | my-filter }}</span>
       <span>点击次数:{{newsinfo.click}}</span>
     </p>
     <hr>
     <div class="content" v-html="newsinfo.content"></div>
+
+    
+    <!-- 评论子组件区域 -->
+    <comment :id="this.id"></comment>
   </div>
 </template>
 
 
 
 <script>
+
+
 import { Toast } from "mint-ui";
 export default {
+ 
   data() {
     return {
       id: this.$route.params.id,
@@ -37,6 +45,7 @@ export default {
   created() {
       this.getnewsINfo()
   },
+ 
 };
 </script>
 

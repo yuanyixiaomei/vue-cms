@@ -29,6 +29,9 @@ Vue.http.options.root="http://www.lovegf.cn:8899/"
 
 //vue resoure 里面改变post编码格式
 
+import VuePreview from 'vue2-preview'
+Vue.use(VuePreview)
+
 Vue.http.options.emulateJSON = true
 
 
@@ -44,11 +47,20 @@ Vue.filter('my-filter', function (dataStr,pattern="YYYY-MM-DD HH:mm:ss") {
 })
 
 
+import comment from './components/comment.vue'
+
+// 定义全局组件, 参数1: 组件名 决定了将来如何使用 参数2: 组件对象
+Vue.component('comment', comment)
+
+
 
 
 /* eslint-disable no-new */
 var vm=new Vue({
   el:"#app",
+  data:{
+    
+  },
   render: c => c(app),
   router,
   

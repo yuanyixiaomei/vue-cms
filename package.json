@@ -12,11 +12,14 @@
   "dependencies": {
     "@types/moment": "^2.13.0",
     "@types/vue-resource": "^0.9.34",
+    "babel-plugin-transform-remove-strict-mode": "0.0.2",
     "mint-ui": "^2.2.13",
     "moment": "^2.23.0",
+    "mui": "0.0.1",
     "vue": "^2.5.2",
     "vue-resource": "^1.5.1",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vue2-preview": "^1.0.2"
   },
   "devDependencies": {
     "@types/less": "^3.0.0",
