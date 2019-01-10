@@ -36,7 +36,7 @@ export default {
         .then(result => {
           if (result.body.status === 0) {
             //concat() 方法用于连接两个或多个数组。
-            console.log(result.body.message);
+            // console.log(result.body.message);
             this.comments = this.comments.concat(result.body.message);
           } else {
             //  console.log(result);

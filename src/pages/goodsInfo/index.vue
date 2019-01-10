@@ -1,7 +1,16 @@
 
 <template>
   <div class="good-info">
-    <!-- 卡片一 -->
+    <transition
+    @before-enter="beforeenter"
+    @enter="enter"
+    @after-enter="afterenter"
+    >
+             <div class="ball" v-if="ballFlag"></div>
+    </transition>
+
+
+    <!-- 图片区域 -->
     <div class="mui-card">
       <div class="mui-card-content">
         <div class="mui-card-content-inner">
@@ -16,7 +25,6 @@
         </div>
       </div>
     </div>
-
     <!-- 商品名称 -->
     <div class="mui-card">
       <div class="mui-card-header">{{goodsInfo.title}}</div>
@@ -28,21 +36,15 @@
             销售价:
           </p>
           <p class="now_price">￥{{goodsInfo.sell_price}}</p>
-          <div class="mui-numbox" data-numbox-min="1" data-numbox-step="1" :max="goodsinfo.stock_quantity">
-            <!-- "-"按钮，点击可减小当前数值 -->
-            <button class="mui-btn mui-numbox-btn-minus" type="button">-</button>
-            <input class="mui-numbox-input" type="number">
-            <!-- "+"按钮，点击可增大当前数值 -->
-            <button class="mui-btn mui-numbox-btn-plus" type="button">+</button>
-          </div>
+          <!-- numbox -->
+          <numbox>1</numbox>
           <div class="bottom">
             <button type="button" class="mui-btn mui-btn-primary">立即购买</button>
-            <button type="button" class="mui-btn mui-btn-danger">加入购物车</button>
+            <button type="button" class="mui-btn mui-btn-danger" @click="addCar">加入购物车</button>
           </div>
         </div>
       </div>
     </div>
-
     <!-- 商品参数 -->
     <div class="mui-card">
       <div class="mui-card-header">商品参数</div>
@@ -55,7 +57,7 @@
       </div>
       <div class="mui-card-footer">
         <mt-button type="primary" size="large" plain @click="goDesc(id)">图文介绍</mt-button>
-        <mt-button type="danger" size="large" plain @click="goDesc(id)">商品评论</mt-button>
+        <mt-button type="danger" size="large" plain @click="goComment(id)">商品评论</mt-button>
       </div>
     </div>
   </div>
@@ -65,6 +67,7 @@
 
 <script>
 import mui from "../../lib/mui/js/mui.min.js";
+import numbox from "../../components/goodsinfo_numbox";
 
 export default {
   data() {
@@ -72,7 +75,7 @@ export default {
       id: this.$route.params.id,
       list: [],
       goodsInfo: {},
-      kucun:""
+      ballFlag: false,
     };
   },
   mounted() {
@@ -90,16 +93,43 @@ export default {
     getgoodsInfo() {
       this.$http.get("api/goods/getinfo/" + this.id).then(result => {
         if (result.body.status === 0) {
-          console.log(result.body);
+          // console.log( result.body.message[0]);
           this.goodsInfo = result.body.message[0];
-          this.kucun=goodsInfo.stock_quantity;
+          this.kucun = this.goodsInfo.stock_quantity;
         }
       });
+    },
+    goDesc(id) {
+      //编程式导航跳转
+      this.$router.push({ name: "goodsDesc", params: { id: id } });
+    },
+    goComment(id) {
+      //编程式导航跳转
+      this.$router.push({ name: "goodsComment", params: { id: id } });
+    },
+    addCar() {
+      this.ballFlag = !this.ballFlag;
+    },
+    beforeenter(el){
+      el.style.transform="translate(0,0)"
+    },
+    enter(el,done){
+    el.offsetWidth;
+     el.style.transform="translate(140px,380px)"
+     el.style.transition="all 1s cubic-bezier(.72,.17,.39,.86)"
+     done()
+    },
+    afterenter(){
+       this.ballFlag=!this.ballFlag
     }
   },
   created() {
     this.getLunbo();
     this.getgoodsInfo();
+    this.addCar();
+  },
+  components: {
+    numbox
   }
 };
 </script>
@@ -133,5 +163,17 @@ export default {
   color: red;
   font-size: 20px;
   font-weight: 700;
+}
+.ball {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: red;
+  position: absolute;
+  z-index: 99;
+  top: 465px;
+  left: 150px;
+  // transform:translate(160px,446px);
+  
 }
 </style>
