@@ -6,7 +6,7 @@
     @enter="enter"
     @after-enter="afterenter"
     >
-             <div class="ball" v-if="ballFlag"></div>
+             <div class="ball" v-show="ballFlag" ref="ball"></div>
     </transition>
 
 
@@ -115,8 +115,18 @@ export default {
     },
     enter(el,done){
     el.offsetWidth;
-     el.style.transform="translate(140px,380px)"
-     el.style.transition="all 1s cubic-bezier(.72,.17,.39,.86)"
+
+    //小球动画优化--小球的横纵坐标不能写死了,用这个方法getBoundingClient
+     const ball=this.$refs.ball
+     const ballPosition = ball.getBoundingClientRect()
+     const badge=document.getElementById("badge")
+     const badgePosition=badge.getBoundingClientRect()
+
+     const scrollX=badgePosition.left-ballPosition.left
+     const scrollY=badgePosition.top-ballPosition.top
+
+     el.style.transform=`translate(${scrollX}px,${scrollY}px)`
+     el.style.transition="all 1s cubic-bezier(.8,-0.19,.38,.65)"
      done()
     },
     afterenter(){
@@ -126,7 +136,7 @@ export default {
   created() {
     this.getLunbo();
     this.getgoodsInfo();
-    this.addCar();
+  
   },
   components: {
     numbox

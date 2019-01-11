@@ -6,7 +6,7 @@
    
     <!-- z中部 -->
 
-    <transition mode="out-in"> 
+    <transition mode="out-in" name="app"> 
      <router-view></router-view>
     </transition>
    
@@ -22,7 +22,7 @@
       </router-link>
       <router-link class="mui-tab-item1" to="/shopcar">
         <span class="mui-icon mui-icon-extra mui-icon-extra-cart">
-          <span class="mui-badge">0</span>
+          <span class="mui-badge" id="badge">0</span>
         </span>
 
         <!-- <span class="mui-icon mui-icon-extra mui-icon-extra-cart">
@@ -52,20 +52,20 @@ export default {
     padding-bottom:60px;
 }
 
-.v-enter,
+.app-enter,
 {
 opacity: 0;
 transform: translateX(100%)
 }
 
 
-.v-leave-to{
+.app-leave-to{
 opacity: 0;
 transform: translateX(-100%)
 }  
 
-.v-enter-active,
-.v-leave-active{
+.app-enter-active,
+.app-leave-active{
   transition: all 0.5s ease;
 }
 .mui-bar-tab .mui-tab-item1{
