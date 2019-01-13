@@ -37,7 +37,7 @@
           </p>
           <p class="now_price">￥{{goodsInfo.sell_price}}</p>
           <!-- numbox -->
-          <numbox>1</numbox>
+          <numbox :max="goodsInfo.stock_quantity" @getCount="getCount">{{selectedCount}}</numbox>
           <div class="bottom">
             <button type="button" class="mui-btn mui-btn-primary">立即购买</button>
             <button type="button" class="mui-btn mui-btn-danger" @click="addCar">加入购物车</button>
@@ -76,12 +76,17 @@ export default {
       list: [],
       goodsInfo: {},
       ballFlag: false,
+      selectedCount:1,//保存用户选中的商品数量
     };
   },
   mounted() {
     mui(".mui-numbox").numbox();
   },
   methods: {
+    getCount(count){
+       this.selectedCount=count;
+      //  console.log("富组件拿到的是"+ this.selectedCount);
+    },
     getLunbo() {
       this.$http.get("api/getthumimages/" + this.id).then(result => {
         // console.log(result.body);
@@ -109,6 +114,15 @@ export default {
     },
     addCar() {
       this.ballFlag = !this.ballFlag;
+      var goodsInfo={
+        id:this.id,
+        count:this.selectedCount,
+        price:this.goodsInfo.sell_price,
+        selected:true
+        };
+        //调用store中的mutation来保存数据
+        this.$store.commit("addToCar",goodsInfo)
+
     },
     beforeenter(el){
       el.style.transform="translate(0,0)"
