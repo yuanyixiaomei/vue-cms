@@ -16,7 +16,7 @@
 export default {
  
   mounted() {
-   console.log(this.max);
+  //  console.log(this.max);
   },
   methods:{
     countChanged(){

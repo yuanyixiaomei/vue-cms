@@ -1,23 +1,20 @@
 <template>
   <div class="shopcar-container">
-    <div class="goods-list">
+    <div class="goods-list" v-for="item in list" :key="item.id">
       <!-- 商品列表项区域 -->
-      <div class="mui-card" >
+      <div class="mui-card">
         <div class="mui-card-content">
           <div class="mui-card-content-inner">
             <!-- v-model="$store.getters.getGoodsSelected[item.id]" -->
-            <mt-switch
-             
-           
-            ></mt-switch>
-            <img src="http://www.lovegf.cn:8899/xm1.jpg">
+            <mt-switch></mt-switch>
+            <img :src="item.thumb_path">
             <div class="info">
-              <h1>huawei </h1>
+              <h1>{{item.title}}</h1>
               <div>
-                <span class="price">￥2199</span>
+                <span class="price">￥{{item.sell_price}}</span>
                 <!-- <numbox :initcount="$store.getters.getGoodsCount[item.id]" :goodsid="item.id"></numbox> -->
-               <!-- number盒子 -->
-                   <numbox>1</numbox>
+                <!-- number盒子 -->
+                <numbox :init="$store.getters.getGoodsCount[item.id]" :id="item.id">1</numbox>
                 <!-- 问题：如何从购物车中获取商品的数量呢 -->
                 <!-- 1. 我们可以先创建一个 空对象，然后循环购物车中所有商品的数据， 把 当前循环这条商品的 Id， 作为 对象 的 属性名，count值作为 对象的 属性值，这样，当把所有的商品循环一遍，就会得到一个对象： { 88: 2, 89: 1, 90: 4 } -->
                 <a href="#">删除</a>
@@ -33,10 +30,9 @@
       <div class="mui-card-content">
         <div class="mui-card-content-inner jiesuan">
           <div class="left">
-
-
             <p>总计（不含运费）</p>
-            <p>已勾选商品
+            <p>
+              已勾选商品
               <span class="red"></span> 件， 总价
               <span class="red">￥</span>
             </p>
@@ -55,23 +51,37 @@
 <script>
 import numbox from "../../components/shopcar_numbox";
 export default {
-  data(){
-   return {
-    //  id:id,
-   }
+  data() {
+    return {
+      list: []
+    };
   },
- components:{
-   numbox,
- },
- methods:{
-   getShopcar(){
-    //  this.$http
-    //  .get("api/goods/getshopcarlist/"+this.id)
-    //  .then(result=>{
+  components: {
+    numbox
+  },
+  methods: {
+    getShopcar() {
+      var idArr = [];
 
-    //  })
-   }
- }
+      this.$store.state.car.forEach(item => {
+        idArr.push(item.id);
+      });
+      if (idArr.length <= 0) {
+        return;
+      }
+      this.$http
+        .get("api/goods/getshopcarlist/" + idArr.join(","))
+        .then(result => {
+          console.log(result.body.message);
+          if (result.body.status == 0) {
+            this.list = result.body.message;
+          }
+        });
+    }
+  },
+  created() {
+    this.getShopcar();
+  }
 };
 </script>
 <style lang="less" scoped>

@@ -73,7 +73,7 @@ const store = new Vuex.Store({
       //  假设没有找到
       var flag = false
       state.car.some(item => {
-        console.log(item.id);
+        // console.log(item.id);
         if (item.id === goodsInfo.id) {
 
           item.count += parseInt(goodsInfo.count)
@@ -87,7 +87,17 @@ const store = new Vuex.Store({
       }
       //把数据存到localStorage
       localStorage.setItem("car",JSON.stringify(state.car))
-    }
+    },
+    updateCount(state,goodsInfo) {
+     state.car.some(item=>{
+       if(item.id=goodsInfo.id){
+         item.count+=goodsInfo.count
+         return true
+       }
+       localStorage.setItem("car",JSON.stringify(state.car))
+       
+     })
+    },
   },
   getters: {
     // this.$store.getters.***
@@ -97,6 +107,14 @@ const store = new Vuex.Store({
         c+=item.count
       })
       return c
+    },
+    getGoodsCount(state){
+      var o={}
+      state.car.forEach(item=>{
+        o[item.id]=item.count
+       
+      })
+      return o
     }
   }
 })
