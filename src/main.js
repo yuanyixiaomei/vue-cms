@@ -55,7 +55,7 @@ Vue.component('comment', comment)
 //导入vuex
 import Vuex from "vuex"
 Vue.use(Vuex)
-var car = JSON.parse(localStorage.getItem("car")||"[]")
+var car = JSON.parse(localStorage.getItem("car") || "[]")
 
 
 
@@ -68,7 +68,7 @@ const store = new Vuex.Store({
     //this.$store.commit("方法的名称","需要传递唯一的参数")
 
     addToCar(state, goodsInfo) {
-    
+
 
       //  假设没有找到
       var flag = false
@@ -86,35 +86,59 @@ const store = new Vuex.Store({
         state.car.push(goodsInfo)
       }
       //把数据存到localStorage
-      localStorage.setItem("car",JSON.stringify(state.car))
+      localStorage.setItem("car", JSON.stringify(state.car))
     },
-    updateCount(state,goodsInfo) {
-     state.car.some(item=>{
-       if(item.id=goodsInfo.id){
-         item.count+=goodsInfo.count
-         return true
-       }
-       localStorage.setItem("car",JSON.stringify(state.car))
-       
-     })
+    updateCount(state, goodsInfo) {
+      state.car.some(item => {
+        if (item.id == goodsInfo.id) {
+          item.count = parseInt(goodsInfo.count)
+          return true
+        }
+      })
+      localStorage.setItem("car", JSON.stringify(state.car))
     },
+    removecar(state, id) {
+      state.car.some((item, i) => {
+        if (item.id == id) {
+          state.car.splice(i, 1)
+          return true
+        }
+      })
+      console.log("3333");
+      localStorage.setItem("car", JSON.stringify(state.car))
+    },
+    updateGoodsSelected(state,info){
+      state.car.some(item=>{
+        if(item.id==info.id){
+          item.selected=info.selected
+        }
+      })
+      localStorage.setItem("car", JSON.stringify(state.car))
+    }
   },
   getters: {
     // this.$store.getters.***
-    getAllCount(state){
-      var c=0;
-      state.car.forEach(item=>{
-        c+=item.count
+    getAllCount(state) {
+      var c = 0;
+      state.car.forEach(item => {
+        c += item.count
       })
       return c
     },
-    getGoodsCount(state){
-      var o={}
-      state.car.forEach(item=>{
-        o[item.id]=item.count
-       
+    getGoodsCount(state) {
+      var o = {}
+      state.car.forEach(item => {
+        o[item.id] = item.count
+
       })
       return o
+    },
+    getGoodsSelect(state){
+      var o={}
+      state.car.forEach(item=>{
+        o[item.id]=item.selected
+      })
+      return o 
     }
   }
 })
