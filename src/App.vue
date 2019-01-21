@@ -1,7 +1,13 @@
 <template>
+
   <div id="app" class="app-container">
     <!-- 顶部 -->
-    <mt-header fixed title="我的vue项目"></mt-header>
+    <mt-header fixed title="我的vue项目">
+
+        <router-link to="/" slot="left">
+    <mt-button icon="back" v-show="flag">返回</mt-button>
+  </router-link>
+    </mt-header>
     <!-- 轮播图 -->
    
     <!-- z中部 -->
@@ -41,7 +47,23 @@
 
 <script>
 export default {
-  name: "App"
+  data() {
+    return {
+      flag: true
+    };
+  },
+  created(){
+   this.$route.path ==="/home"? this.flag=false:this.flag=true
+  },
+  watch: {
+    "$route.path":function(newVal){
+       if(newVal==="/home"){
+         this.flag=false
+       }else{
+         this.flag=true;
+       }
+    }
+  }
 };
 </script>
 
@@ -49,50 +71,48 @@ export default {
 .app-container {
   padding-top: 40px;
   overflow: hidden;
-    padding-bottom:60px;
+  padding-bottom: 60px;
 }
 
-.app-enter,
-{
-opacity: 0;
-transform: translateX(100%)
+.app-enter {
+  opacity: 0;
+  transform: translateX(100%);
 }
 
-
-.app-leave-to{
-opacity: 0;
-transform: translateX(-100%)
-}  
+.app-leave-to {
+  opacity: 0;
+  transform: translateX(-100%);
+}
 
 .app-enter-active,
-.app-leave-active{
+.app-leave-active {
   transition: all 0.5s ease;
 }
-.mui-bar-tab .mui-tab-item1{
-     display: table-cell;
-    overflow: hidden;
-    width: 1%;
-    height: 50px;
-    text-align: center;
-    vertical-align: middle;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    color: #929292;
+.mui-bar-tab .mui-tab-item1 {
+  display: table-cell;
+  overflow: hidden;
+  width: 1%;
+  height: 50px;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: #929292;
 }
 .mui-bar-tab .mui-tab-item1 .mui-icon {
-    top: 3px;
-    width: 24px;
-    height: 24px;
-    padding-top: 0;
-    padding-bottom: 0;
+  top: 3px;
+  width: 24px;
+  height: 24px;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 .mui-bar-tab .mui-tab-item1 .mui-icon ~ .mui-tab-label {
-    font-size: 11px;
-    display: block;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  font-size: 11px;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .mui-bar-tab .mui-tab-item1.mui-active {
-    color: #007aff;
+  color: #007aff;
 }
 </style>

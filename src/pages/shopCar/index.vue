@@ -35,8 +35,8 @@
             <p>总计（不含运费）</p>
             <p>
               已勾选商品
-              <span class="red"></span> 0件， 总价
-              <span class="red">￥0</span>
+              <span class="red"></span> {{$store.getters.getGoodsAmountCount.count}}件， 总价
+              <span class="red">￥{{$store.getters.getGoodsAmountCount.amount}}</span>
             </p>
           </div>
           <mt-button type="danger">去结算</mt-button>
@@ -44,7 +44,7 @@
       </div>
     </div>
 
-    <p>{{$store.getters.getGoodsSelect }}</p>
+    <p>{{$store.getters.getGoodsSelect}}</p>
   </div>
 </template>
 
@@ -72,22 +72,23 @@ export default {
       if (idArr.length <= 0) {
         return;
       }
-      console.log(idArr);
+
       this.$http
         .get("api/goods/getshopcarlist/" + idArr.join(","))
         .then(result => {
-          console.log(result.body.message);
+       
           if (result.body.status == 0) {
             this.list = result.body.message;
           }
         });
     },
-    remove(id,index) {
+    remove(id, index) {
       this.list.splice(index, 1);
       this.$store.commit("removecar", id);
     },
-    selectedChanged(id,val){
-   this.$store.commit("updateGoodsSelected",{id,selected:val})
+    selectedChanged(id, val) {
+      this.$store.commit("updateGoodsSelected", { id, selected: val });
+         
     }
   },
   created() {

@@ -139,6 +139,19 @@ const store = new Vuex.Store({
         o[item.id]=item.selected
       })
       return o 
+    },
+    getGoodsAmountCount(state){
+      var o={
+        count:0,
+        amount:0
+      }
+      state.car.forEach(item=>{
+       if(item.selected){
+         o.count+=item.count,
+         o.amount+=item.price*item.count
+       }
+      })
+      return o 
     }
   }
 })
